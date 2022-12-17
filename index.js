@@ -28,3 +28,9 @@ peer.on('call', mediaConnection => {
   mediaConnection.answer(localStream);
   setEventListener(mediaConnection);
 });
+peer.on('error', err => {
+  alert(err.message);
+});
+peer.on('close', () => {
+  alert('通信が切断しました。');
+});
