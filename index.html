@@ -1,35 +1,34 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://cdn.webrtc.ecl.ntt.com/skyway-4.4.5.js"></script>
-  <script src="index.js"></script>
-  <title>SkyWayチュートリアル</title>
-</head>
-<body>
-  <video id="my-video" width="400px" autoplay muted playsinline></video>
-	<p id="my-id"></p>
-  <input id="their-id"></input>
-  <button id="make-call">発信</button>
-  <video id="their-video" width="400px" autoplay muted playsinline></video>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SkyWay - P2P Data example</title>
+    <link rel="stylesheet" href="../_shared/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="heading">P2P Data example</h1>
+      <p class="note">
+        Enter remote peer ID to connect.
+      </p>
+      <div class="p2p-data">
+        <div>
+          <p>Your ID: <span id="js-local-id"></span></p>
+          <input type="text" placeholder="Remote Peer ID" id="js-remote-id">
+          <button id="js-connect-trigger">Connect</button>
+          <button id="js-close-trigger">Close</button>
+        </div>
+        <div>
+          <pre class="messages" id="js-messages"></pre>
+          <input type="text" id="js-local-text">
+          <button id="js-send-trigger">Send</button>
+        </div>
+      </div>
+      <p class="meta" id="js-meta"></p>
+    </div>
+    <script src="//cdn.webrtc.ecl.ntt.com/skyway-4.4.5.js"></script>
+    <script src="../_shared/key.js"></script>
+    <script src="./script.js"></script>
+  </body>
 </html>
-<script>
-  let localStream;
-
-  // カメラ映像取得
-  navigator.mediaDevices.getUserMedia({video: true, audio: true})
-    .then( stream => {
-    // 成功時にvideo要素にカメラ映像をセットし、再生
-    const videoElm = document.getElementById('my-video');
-    videoElm.srcObject = stream;
-    videoElm.play();
-    // 着信時に相手にカメラ映像を返せるように、グローバル変数に保存しておく
-    localStream = stream;
-  }).catch( error => {
-    // 失敗時にはエラーログを出力
-    console.error('mediaDevice.getUserMedia() error:', error);
-    return;
-  });
-</script>
